@@ -7,7 +7,6 @@ const consoleTable = require('console.table');
 // Create the connection to the database
 const db = mysql.createConnection({
     host: 'localhost',
-    port: 3301,
     user: 'root',
     password: '',
     database: 'employees_db'
@@ -30,4 +29,34 @@ function start()
         'Update an employee role',
         'Exit'
       ]
+      .then((answer) => {
+        switch (answer.action) {
+          case 'View all departments':
+            viewAllDepartments();
+            break;
+          case 'View all roles':
+            viewAllRoles();
+            break;
+          case 'View all employees':
+            viewAllEmployees();
+            break;
+          case 'Add a department':
+            addDepartment();
+            break;
+          case 'Add a role':
+            addRole();
+            break;
+          case 'Add an employee':
+            addEmployee();
+            break;
+          case 'Update an employee role':
+            updateEmployeeRole();
+            break;
+          case 'Exit':
+            console.log('Goodbye!');
+            connection.end();
+            break;
+        }
+      });
+    
 
