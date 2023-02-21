@@ -2,15 +2,9 @@
 const mysql = require('mysql2');
 
 const inquirer = require('inquirer');
-const consoleTable = require('console.table');
+require('console.table');
 
-// Create the connection to the database
-const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'employees_db'
-  });
+
 
 
 // Function to prompt the user for what they would like to do
