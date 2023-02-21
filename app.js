@@ -1,19 +1,20 @@
 // Import and require mysql2
-const mysql = require('mysql2');
 
 const inquirer = require('inquirer');
 require('console.table');
 
+const db = require("./db")
 
 
 
+start()
 // Function to prompt the user for what they would like to do
-function start() 
-    inquirer.prompt
-      name: 'action',
-      type; 'list',
-      message; 'What would you like to do?',
-      choices; [
+function start() {
+    inquirer.prompt(
+      {name: 'action',
+      type: 'list',
+      message: 'What would you like to do?',
+      choices: [
         'View all departments',
         'View all roles',
         'View all employees',
@@ -22,7 +23,7 @@ function start()
         'Add an employee',
         'Update an employee role',
         'Exit'
-      ]
+      ]})
       .then((answer) => {
         switch (answer.action) {
           case 'View all departments':
@@ -52,7 +53,7 @@ function start()
             break;
         }
       });
-    
+}
 // Function to View all Departments 
 function viewAllDepartments() {
     connection.query('SELECT * FROM department', (err, res) => {
@@ -73,11 +74,12 @@ function viewAllRoles() {
 
 // Function to View all Employees
 function viewAllEmployees() {
-    connection.query('SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, CONCAT(manager.first_name, " ", manager.last_name) AS manager FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id LEFT JOIN employee manager ON employee.manager_id = manager.id', (err, res) => {
-      if (err) throw err;
-      console.table(res);
-      start();
-    });
+  db.findAllEmployees()
+  .then(([rows]) => {
+    let employees = rows
+    console.table (employees);
+  })
+  .then(() => start())
   }
 
 //Function to Add a Department
