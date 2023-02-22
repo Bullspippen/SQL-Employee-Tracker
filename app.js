@@ -106,10 +106,40 @@ function addDepartment(){
 }
 
 //Function to Add a Role
-// WHEN I choose to add a role
-// THEN I am prompted to enter the name, salary, and department for the role and that role is added to the database
 function addRole(){
-    
+  db.findAllDepartments()
+  .then(([rows]) => {
+    let departments = rows;
+    const departmentChoices = departments.map(({ id, name }) => ({
+      name: name,
+      value: id,
+    }));
+
+    inquirer
+      .prompt([
+        {
+          name: 'title',
+          type: 'input',
+          message: 'What is the title of the role?',
+        },
+        {
+          name: 'salary',
+          type: 'number',
+          message: 'What is the salary of the role?',
+        },
+        {
+          name: 'department_id',
+          type: 'list',
+          message: 'Which department does the role belong to?',
+          choices: departmentChoices,
+        },
+      ])
+      .then((answer) => {
+        db.createRole(answer)
+          .then(() => console.log(`Added ${answer.title} to the database`))
+          .then(() => start());
+      });
+  });
 }
 //Function to Add an Employee
 // WHEN I choose to add an employee
