@@ -91,4 +91,4 @@ class DB{
     }
 }
 
-module.exports = new DB (connection);
+module.exports = new DB(connection);
