@@ -194,10 +194,44 @@ function addEmployee(){
   });
 }
 
-//Function to Update an EMployee ROle
-// WHEN I choose to update an employee role
-// THEN I am prompted to select an employee to update and their new role and this information is updated in the database
+//Function to Update an Employee Role
 function updateEmployeeRole(){
+  db.findAllEmployees()
+    .then(([rows]) => {
+      let employees = rows;
+      const employeeChoices = employees.map(({ id, first_name, last_name }) => ({
+        name: `${first_name} ${last_name}`,
+        value: id,
+      }));
 
+    db.findAllRoles()
+      .then(([rows]) => {
+        let roles = rows;
+        const roleChoices = roles.map(({ id, title }) => ({
+          name: title,
+          value: id,
+      }));
+
+      inquirer.prompt([
+        {
+          type: 'list',
+          name: 'employeeId',
+          message: "Which employee's role do you want to update?",
+          choices: employeeChoices,
+        },
+        {
+          type: 'list',
+          name: 'roleId',
+          message: "Which role do you want to assign to the selected employee?",
+          choices: roleChoices,
+        },
+      ])
+        .then((answers) => {
+          // Update the employee's role in the database
+          db.updateEmployeeRole(answers.employeeId, answers.roleId)
+            .then(() => console.log('Employee role updated successfully!'))
+            .then(() => start());
+        });
+    });
+});
 }
-//then statment for answers
