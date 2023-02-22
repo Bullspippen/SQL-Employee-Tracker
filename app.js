@@ -56,21 +56,23 @@ function start() {
 }
 // Function to View all Departments 
 function viewAllDepartments() {
-    connection.query('SELECT * FROM department', (err, res) => {
-      if (err) throw err;
-      console.table(res);
-      start();
-    });
-  }
+  db.findAllDepartments()
+  .then(([rows]) => {
+    const departments = rows;
+    console.table(departments);
+  })
+  .then(() => start());
+}
 
 // Function to View all Roles
 function viewAllRoles() {
-    connection.query('SELECT * FROM role', (err, res) => {
-      if (err) throw err;
-      console.table(res);
-      start();
-    });
-  }
+  db.findAllRoles()
+  .then(([rows]) => {
+    const roles = rows;
+    console.table(roles);
+  })
+  .then(() => start());
+}
 
 // Function to View all Employees
 function viewAllEmployees() {
@@ -83,11 +85,26 @@ function viewAllEmployees() {
   }
 
 //Function to Add a Department
-// WHEN I choose to add a department
-// THEN I am prompted to enter the name of the department and that department is added to the database
 function addDepartment(){
-
+  inquirer.prompt([
+    {
+      type: 'input',
+      name: 'name',
+      message: 'What is the name of the department?',
+      validate: (input) => {
+        if (input === '') {
+          return 'Department name cannot be empty.';
+        }
+        return true;
+      },
+    },
+  ]).then((answer) => {
+    db.createDepartment(answer.name)
+      .then(() => console.log(`Added ${answer.name} to the database.`))
+      .then(() => start());
+  });
 }
+
 //Function to Add a Role
 // WHEN I choose to add a role
 // THEN I am prompted to enter the name, salary, and department for the role and that role is added to the database
