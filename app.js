@@ -141,18 +141,59 @@ function addRole(){
       });
   });
 }
+
 //Function to Add an Employee
-// WHEN I choose to add an employee
-// THEN I am prompted to enter the employee’s first name, last name, role, and manager, and that employee is added to the database
 function addEmployee(){
+  db.findAllRoles()
+  .then(([rows]) => {
+    let roles = rows;
+    const roleChoices = roles.map(({ id, title }) => ({
+      name: title,
+      value: id,
+    }));
 
+    db.findAllEmployees()
+      .then(([rows]) => {
+        let employees = rows;
+        const managerChoices = employees.map(({ id, first_name, last_name }) => ({
+          name: `${first_name} ${last_name}`,
+          value: id,
+        }));
+
+        inquirer.prompt([
+          {
+            type: "input",
+            name: "first_name",
+            message: "Enter the employee's first name:",
+          },
+          {
+            type: "input",
+            name: "last_name",
+            message: "Enter the employee's last name:",
+          },
+          {
+            type: "list",
+            name: "role_id",
+            message: "Select the employee's role:",
+            choices: roleChoices,
+          },
+          {
+            type: "list",
+            name: "manager_id",
+            message: "Select the employee's manager:",
+            choices: managerChoices,
+          },
+        ])
+        .then((answer) => {
+          db.createEmployee(answer)
+            .then(() => console.log(`Added ${answer.first_name} ${answer.last_name} to the database`))
+            .then(() => start())
+            .catch((err) => console.log(err));
+        });
+      });
+  });
 }
-    //     type: "input",
-    //     name: "firstName",  
-    //     message: "Enter the employee's first name:",
-    //   Do the same for lastName, roleId and ManagerId (Creating Roles??)
 
-    
 //Function to Update an EMployee ROle
 // WHEN I choose to update an employee role
 // THEN I am prompted to select an employee to update and their new role and this information is updated in the database
