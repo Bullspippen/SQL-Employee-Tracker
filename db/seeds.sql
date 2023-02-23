@@ -10,18 +10,18 @@ INSERT INTO role (title, salary, department_id) VALUES
     ("Accountant", 60000, 2),
     ("Marketing Researcher", 100000, 3),
     ("Software Engineer", 90000, 4),
-    ("Sales Manager", 120000, 5),
-    ("Finance Manager", 140000, 6),
-    ("Marketing Director", 160000, 7),
-    ("Engineering Manager", 180000, 8);
+    ("Sales Manager", 120000, 1),
+    ("Finance Manager", 140000, 2),
+    ("Marketing Director", 160000, 3),
+    ("Engineering Manager", 180000, 4);
 
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES
+    ("Sarah", "Johnson", 5, NULL),
+    ("Naomi", "Silver", 6, NULL),
+    ("Britney", "Pearson", 7, NULL),
+    ("Brett", "Hart", 8, NULL),
     ("Michael", "Smith", 1, 5),
     ("James", "Brown", 2, 6),
     ("Robert", "Hawkins", 3, 7),
-    ("Penny", "Hardaway", 4, 8),
-    ("Sarah", "Johnson", 2, 5),
-    ("Naomi", "Silver", 3, 6),
-    ("Britney", "Pearson", 4, 8),
-    ("Brett", "Hart",1, 5);
+    ("Penny", "Hardaway", 4, 8);

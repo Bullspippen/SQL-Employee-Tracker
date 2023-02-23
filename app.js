@@ -99,7 +99,7 @@ function addDepartment(){
       },
     },
   ]).then((answer) => {
-    db.createDepartment(answer.name)
+    db.createDepartment(answer)
       .then(() => console.log(`Added ${answer.name} to the database.`))
       .then(() => start());
   });
