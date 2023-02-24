@@ -27,4 +27,4 @@ THEN I am prompted to enter the employee’s first name, last name, role, and ma
 WHEN I choose to update an employee role
 THEN I am prompted to select an employee to update and their new role and this information is updated in the database
 
-Check out this Link to the Chrome Extension: [SQL-Employee-Tracker](https://drive.google.com/file/d/13qsJS4rkg0S0nhmbjjFaNj1OVJTDVGRw/view)
+Check out this Link to the Chrome Extension: [SQL-Employee-Tracker](https://drive.google.com/file/d/1xjvX8oLKo-1-ksgdbmJZyfviV3EZbBJ-/view)
