@@ -87,21 +87,38 @@ class DB{
             WHERE department.id = ?`,
             [department_id]
         );
+    }
+
+    viewDepartmentBudget() {
+        return this.connection.promise().query(`
+          SELECT d.name AS department_name, SUM(r.salary) AS total_salary_budget
+          FROM department d
+          JOIN role r ON d.id = r.department_id
+          JOIN employee e ON r.id = e.role_id
+          GROUP BY d.name;
+        `)
+        .then(([rows]) => {
+          console.table(rows);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+      }
+      start() {
+        this.viewDepartmentBudget();
+      }
     
+      createDepartment(department) {
+        return this.connection.promise().query("INSERT INTO department SET ?", department);
+      }
+    
+      createRole(role) {
+        return this.connection.promise().query("INSERT INTO role SET ?", role);
+      }
+    
+      createEmployee(employee) {
+        return this.connection.promise().query("INSERT INTO employee SET ?", employee);
+      }
     }
-
-    createDepartment(department) {
-        return this.connection.promise().query("INSERT INTO department SET ?", department)
-        
-    }
-
-    createRole(role) {
-        return this.connection.promise().query("INSERT INTO role SET ?", role)
-}
-
-    createEmployee(employee) {
-        return this.connection.promise().query("INSERT INTO employee SET ?", employee)
-
-    }}
-
-module.exports = new DB(connection);
+    
+    module.exports = new DB(connection);

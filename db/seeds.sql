@@ -1,9 +1,9 @@
 USE employees_db;
 INSERT INTO department (name) VALUES
-    ("sales"), 
-    ("finance"),
-    ("marketing"),
-    ("engineering");
+    ("Sales"), 
+    ("Finance"),
+    ("Marketing"),
+    ("Engineering");
 
 INSERT INTO role (title, salary, department_id) VALUES
     ("Account Executive", 75000, 1),

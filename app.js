@@ -15,13 +15,14 @@ function start() {
       type: 'list',
       message: 'What would you like to do?',
       choices: [
-        'View all departments',
-        'View all roles',
-        'View all employees',
-        'Add a department',
-        'Add a role',
-        'Add an employee',
-        'Update an employee role',
+        'View All Departments',
+        'View All Roles',
+        'View All Employees',
+        'Add a Department',
+        'Add a Role',
+        'Add an Employee',
+        'Update an Employee Role',
+        'View Department Budget',
         'Exit'
       ]})
       .then((answer) => {
@@ -46,6 +47,9 @@ function start() {
             break;
           case 'Update an employee role':
             updateEmployeeRole();
+            break;
+          case "View Department Budget":
+            viewDepartmentBudget();
             break;
           case 'Exit':
             console.log('Goodbye!');
@@ -234,4 +238,13 @@ function updateEmployeeRole(){
         });
     });
 });
-}
+
+//Function to View Department Budget
+function viewDepartmentBudget() {
+  db.findDepartmentBudget()
+    .then(([rows]) => {
+      const budget = rows;
+      console.table(budget);
+    })
+      .then(() => start())
+}}

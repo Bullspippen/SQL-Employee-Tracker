@@ -26,4 +26,8 @@ CREATE TABLE employee (
     CONSTRAINT fk_manager FOREIGN KEY (manager_id) REFERENCES employee(id) ON DELETE SET NULL
 );
 
+SELECT d.name AS department_name, SUM(r.salary) AS total_salary_budget
+FROM department d
+JOIN role r ON d.department_id = r.department_id
+GROUP BY d.name;
 
