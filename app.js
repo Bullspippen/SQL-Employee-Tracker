@@ -238,13 +238,13 @@ function updateEmployeeRole(){
         });
     });
 });
-
+}
 //Function to View Department Budget
 function viewDepartmentBudget() {
-  db.findDepartmentBudget()
+  db.viewDepartmentBudget()
     .then(([rows]) => {
       const budget = rows;
       console.table(budget);
     })
       .then(() => start())
-}}
+}
