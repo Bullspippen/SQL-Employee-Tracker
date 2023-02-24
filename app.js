@@ -27,25 +27,25 @@ function start() {
       ]})
       .then((answer) => {
         switch (answer.action) {
-          case 'View all departments':
+          case 'View All Departments':
             viewAllDepartments();
             break;
-          case 'View all roles':
+          case 'View All Roles':
             viewAllRoles();
             break;
-          case 'View all employees':
+          case 'View All Employees':
             viewAllEmployees();
             break;
-          case 'Add a department':
+          case 'Add a Department':
             addDepartment();
             break;
-          case 'Add a role':
+          case 'Add a Role':
             addRole();
             break;
-          case 'Add an employee':
+          case 'Add an Employee':
             addEmployee();
             break;
-          case 'Update an employee role':
+          case 'Update an Employee Role':
             updateEmployeeRole();
             break;
           case "View Department Budget":

@@ -104,6 +104,7 @@ class DB{
           console.error(error);
         });
       }
+      
       start() {
         this.viewDepartmentBudget();
       }
